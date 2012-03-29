@@ -404,8 +404,8 @@ class haproxy (
   ### Firewall management, if enabled ( firewall => true )
   if $haproxy::bool_firewall == true {
     firewall { "haproxy_${haproxy::protocol}_${haproxy::port}":
-      source      => $haproxy::firewall_source,
-      destination => $haproxy::firewall_destination,
+      source      => $haproxy::firewall_src,
+      destination => $haproxy::firewall_dst,
       protocol    => $haproxy::protocol,
       port        => $haproxy::port,
       action      => 'allow',
