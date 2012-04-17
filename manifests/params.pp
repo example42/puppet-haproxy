@@ -81,7 +81,7 @@ class haproxy::params {
     default => '',
   }
 
-  $port = ''
+  $port = '8443'
   $protocol = 'tcp'
 
   # General Settings

@@ -428,4 +428,10 @@ class haproxy (
     }
   }
 
+  # Include OS specific subclasses, if necessary
+  case $::operatingsystem {
+    debian,ubuntu: { include haproxy::debian }
+    default: { }
+  }
+
 }
