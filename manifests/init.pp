@@ -356,7 +356,7 @@ class haproxy (
       notify  => $haproxy::manage_service_autorestart,
       source  => $haproxy::source_dir,
       recurse => true,
-      purge   => $haproxy::source_dir_purge,
+      purge   => $haproxy::bool_source_dir_purge,
       replace => $haproxy::manage_file_replace,
       audit   => $haproxy::manage_audit,
     }
