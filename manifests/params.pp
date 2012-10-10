@@ -81,7 +81,11 @@ class haproxy::params {
     default => '',
   }
 
-  $port = '8443'
+  $port = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => '8443',
+    default                   => '5000',
+  }
+
   $protocol = 'tcp'
 
   # General Settings
