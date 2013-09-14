@@ -1,5 +1,5 @@
 class haproxy::debian {
-  # Enable service start
+  # Enable service start
   file { 'default-haproxy':
     ensure  => $haproxy::manage_file,
     path    => $haproxy::config_file_init,
