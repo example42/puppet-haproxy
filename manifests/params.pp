@@ -13,7 +13,7 @@ class haproxy::params {
   }
 
   $config_file_path = $::osfamily ? {
-    default => '/etc/haproxy/haproxy.conf',
+    default => '/etc/haproxy/haproxy.cfg',
   }
 
   $config_file_mode = $::osfamily ? {
@@ -31,6 +31,17 @@ class haproxy::params {
   $config_dir_path = $::osfamily ? {
     default => '/etc/haproxy',
   }
+
+  $init_file_path = $::osfamily ? {
+    debian  => '/etc/default/haproxy',
+    default => false,
+  }
+
+  $init_file_template = $::osfamily ? {
+    debian  => 'haproxy/default.init-debian',
+    default => false,
+  }
+
 
   case $::osfamily {
     'Debian','RedHat','Amazon': { }

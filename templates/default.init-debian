@@ -1,0 +1,7 @@
+# File Managed by Puppet
+<% if @service_enable == true -%>
+ENABLED=1
+<% else -%>
+ENABLED=0
+<% end -%>
+# EXTRAOPTS="-de -m 16"

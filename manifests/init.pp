@@ -26,6 +26,9 @@ class haproxy (
   $config_file_content       = undef,
   $config_file_options_hash  = { } ,
 
+  $init_file_path            = $haproxy::params::init_file_path,
+  $init_file_template        = $haproxy::params::init_file_template,
+
   $config_dir_path           = $haproxy::params::config_dir_path,
   $config_dir_source         = undef,
   $config_dir_purge          = false,
@@ -52,7 +55,6 @@ class haproxy (
 
   # Class variables validation and management
 
-  validate_bool($service_enable)
   validate_bool($config_dir_recurse)
   validate_bool($config_dir_purge)
   if $config_file_options_hash { validate_hash($config_file_options_hash) }
@@ -77,8 +79,16 @@ class haproxy (
     $config_dir_ensure = absent
     $config_file_ensure = absent
   } else {
-    $manage_service_enable = $service_enable
-    $manage_service_ensure = $service_ensure
+    $manage_service_enable = $service_enable ? {
+      ''      => undef,
+      'undef' => undef,
+      default => $service_enable,
+    }
+    $manage_service_ensure = $service_ensure ? {
+      ''      => undef,
+      'undef' => undef,
+      default => $service_ensure,
+    }
     $config_dir_ensure = directory
     $config_file_ensure = present
   }
@@ -111,6 +121,19 @@ class haproxy (
       content => $haproxy::manage_config_file_content,
       notify  => $haproxy::manage_config_file_notify,
       require => $haproxy::config_file_require,
+    }
+  }
+
+  if $haproxy::init_file_path {
+    file { 'haproxy.conf.init':
+      ensure  => $haproxy::manage_file,
+      path    => $haproxy::init_file_path,
+      require => $haproxy::config_file_require,
+      content => template($haproxy::init_file_template),
+      mode    => $haproxy::config_file_mode,
+      owner   => $haproxy::config_file_owner,
+      group   => $haproxy::config_file_group,
+      notify  => $haproxy::config_file_notify,
     }
   }
 
