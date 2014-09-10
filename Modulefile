@@ -1,5 +1,5 @@
 name          'example42/haproxy'
-version '3.0.1'
+version '3.0.2'
 source        'https://github.com/example42/puppet-haproxy'
 author        'Alessandro Franceschi'
 license       'Apache License, Version 2.0'
