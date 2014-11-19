@@ -118,7 +118,7 @@ The module provides also a generic define to manage any haproxy configuration fi
 * Do not trigger a service restart when a config file changes.
 
         class { 'haproxy':
-          config_dir_notify => '', # Default: Service[haproxy]
+          config_file_notify => '', # Default: Service[haproxy]
         }
 
 
